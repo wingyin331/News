@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "patternProperties": {
+    "^(/[a-zA-Z0-9\\.\\-\\+_]+)+/?$": {
+      "type": "object",
+      "description": "REST route",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of data associated with this route",
+          "oneOf": [
+            { "const": "url" }
+          ]
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "const": "url" } }
+          },
+          "then": {
+            "properties": {
+              "path": {
+                "description": "URL path to a remote resource.",
+                "format": "uri",
+                "pattern": "^https?:\/\/.+$"
+              }
+            }
+          }
+        }
+      ],
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
