@@ -34,6 +34,12 @@ export default class Takeover extends React.Component {
     }
   }
 
+  handleOnSlotRender = (eventData) => {
+    if (!eventData.event.isEmpty) {
+      $('#takeover').removeClass('display-none')
+    }
+  }
+
   render() {
     const { loaded } = this.state
     if (!loaded) {
@@ -62,7 +68,6 @@ export default class Takeover extends React.Component {
               }
             }} />
         </div>
-
       </div>
     )
   }
